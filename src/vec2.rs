@@ -6,7 +6,7 @@ use rand::{thread_rng, Rng};
 
 use crate::Vec3;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Default, Clone, Copy)]
 pub struct Vec2 {
     x: f64,
     y: f64,
