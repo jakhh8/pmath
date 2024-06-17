@@ -24,3 +24,7 @@ pub fn linear_to_gamma(linear: f64) -> f64 {
 
     0.0
 }
+
+pub fn gamma_to_linear(gamma: f64) -> f64 {
+    (gamma * gamma).clamp(0.0, 1.0)
+}
