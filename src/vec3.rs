@@ -41,6 +41,16 @@ impl Vec3 {
         }
     }
 
+    pub fn from_u8s(r: u8, g: u8, b: u8) -> Self {
+        let color_scale = 1.0 / 255.0;
+
+        Self {
+            x: r as f64 * color_scale,
+            y: g as f64 * color_scale,
+            z: b as f64 * color_scale,
+        }
+    }
+
     pub fn length(&self) -> f64 {
         self.length_squared().sqrt()
     }
