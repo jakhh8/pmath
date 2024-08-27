@@ -43,23 +43,34 @@ impl Vec4 {
         }
     }
 
-    pub fn length(&self) -> f64 {
+    pub fn from_rgba(r: u8, g: u8, b: u8, a: u8) -> Self {
+        let color_scale = 1.0 / 255.0;
+
+        Self {
+            x: r as f64 * color_scale,
+            y: g as f64 * color_scale,
+            z: b as f64 * color_scale,
+            w: a as f64 * color_scale,
+        }
+    }
+
+    pub fn length(self) -> f64 {
         self.length_squared().sqrt()
     }
 
-    pub fn length_squared(&self) -> f64 {
+    pub fn length_squared(self) -> f64 {
         self.x * self.x + self.y * self.y + self.z * self.z + self.w * self.w
     }
 
-    pub fn normalized(&self) -> Self {
-        *self / self.length()
+    pub fn normalized(self) -> Self {
+        self / self.length()
     }
 
-    pub fn dot(&self, rhs: &Self) -> f64 {
+    pub fn dot(self, rhs: Self) -> f64 {
         self.x * rhs.x + self.y * rhs.y + self.z * rhs.z + self.w * rhs.w
     }
 
-    pub fn truncate(&self) -> Vec3 {
+    pub fn truncate(self) -> Vec3 {
         Vec3::new(self.x, self.y, self.z)
     }
 
@@ -72,7 +83,7 @@ impl Vec4 {
         )
     }
 
-    pub fn near_zero(&self) -> bool {
+    pub fn near_zero(self) -> bool {
         let s = 1e-8;
 
         (self.x.abs() < s) && (self.y.abs() < s) && (self.z.abs() < s) && (self.w.abs() < s)

@@ -41,7 +41,7 @@ impl Vec3 {
         }
     }
 
-    pub fn from_u8s(r: u8, g: u8, b: u8) -> Self {
+    pub fn from_rgb(r: u8, g: u8, b: u8) -> Self {
         let color_scale = 1.0 / 255.0;
 
         Self {
@@ -51,23 +51,23 @@ impl Vec3 {
         }
     }
 
-    pub fn length(&self) -> f64 {
+    pub fn length(self) -> f64 {
         self.length_squared().sqrt()
     }
 
-    pub fn length_squared(&self) -> f64 {
+    pub fn length_squared(self) -> f64 {
         self.x * self.x + self.y * self.y + self.z * self.z
     }
 
-    pub fn normalized(&self) -> Self {
-        *self / self.length()
+    pub fn normalized(self) -> Self {
+        self / self.length()
     }
 
-    pub fn dot(&self, rhs: &Self) -> f64 {
+    pub fn dot(self, rhs: Self) -> f64 {
         self.x * rhs.x + self.y * rhs.y + self.z * rhs.z
     }
 
-    pub fn cross(&self, rhs: &Self) -> Self {
+    pub fn cross(self, rhs: Self) -> Self {
         Self {
             x: self.y * rhs.z - self.z * rhs.y,
             y: self.z * rhs.x - self.x * rhs.z,
@@ -75,24 +75,24 @@ impl Vec3 {
         }
     }
 
-    pub fn truncate(&self) -> Vec2 {
+    pub fn truncate(self) -> Vec2 {
         Vec2::new(self.x, self.y)
     }
 
-    pub fn extend(&self, w: f64) -> Vec4 {
+    pub fn extend(self, w: f64) -> Vec4 {
         Vec4::new(self.x, self.y, self.z, w)
     }
 
-    pub fn reflect(&self, normal: &Self) -> Self {
-        *self - 2.0 * self.dot(normal) * *normal
+    pub fn reflect(self, normal: Self) -> Self {
+        self - 2.0 * self.dot(normal) * normal
     }
 
     /// Assumes self is normalized
-    pub fn refract(&self, normal: &Self, etai_over_etat: f64) -> Self {
-        let cos_theta = (-*self).dot(normal).min(1.0);
+    pub fn refract(self, normal: Self, etai_over_etat: f64) -> Self {
+        let cos_theta = (-self).dot(normal).min(1.0);
 
-        let r_out_perp = etai_over_etat * (*self + cos_theta * *normal);
-        let r_out_parallel = -(1.0 - r_out_perp.length_squared()).abs().sqrt() * *normal;
+        let r_out_perp = etai_over_etat * (self + cos_theta * normal);
+        let r_out_parallel = -(1.0 - r_out_perp.length_squared()).abs().sqrt() * normal;
 
         r_out_perp + r_out_parallel
     }
@@ -105,7 +105,7 @@ impl Vec3 {
         )
     }
 
-    pub fn near_zero(&self) -> bool {
+    pub fn near_zero(self) -> bool {
         let s = 1e-8;
 
         (self.x.abs() < s) && (self.y.abs() < s) && (self.z.abs() < s)
@@ -142,7 +142,7 @@ impl Vec3 {
         Self::random().normalized()
     }
 
-    pub fn random_on_hemisphere(normal: &Self) -> Self {
+    pub fn random_on_hemisphere(normal: Self) -> Self {
         let on_unit_sphere = Self::random_unit_vector();
 
         if on_unit_sphere.dot(normal) > 0.0 {

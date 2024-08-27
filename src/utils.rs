@@ -2,18 +2,18 @@ use crate::vec3::Vec3;
 
 pub trait Lerp {
     #[allow(unused)]
-    fn lerp(&self, rhs: Self, fac: f64) -> Self;
+    fn lerp(self, rhs: Self, fac: f64) -> Self;
 }
 
 impl Lerp for f64 {
-    fn lerp(&self, rhs: Self, fac: f64) -> Self {
-        (1.0 - fac) * rhs + fac * *self
+    fn lerp(self, rhs: Self, fac: f64) -> Self {
+        (1.0 - fac) * rhs + fac * self
     }
 }
 
 impl Lerp for Vec3 {
-    fn lerp(&self, rhs: Self, fac: f64) -> Self {
-        (1.0 - fac) * rhs + fac * *self
+    fn lerp(self, rhs: Self, fac: f64) -> Self {
+        (1.0 - fac) * rhs + fac * self
     }
 }
 

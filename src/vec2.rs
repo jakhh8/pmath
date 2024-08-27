@@ -32,27 +32,27 @@ impl Vec2 {
         Self { x: val, y: val }
     }
 
-    pub fn length(&self) -> f64 {
+    pub fn length(self) -> f64 {
         self.length_squared().sqrt()
     }
 
-    pub fn length_squared(&self) -> f64 {
+    pub fn length_squared(self) -> f64 {
         self.x * self.x + self.y * self.y
     }
 
-    pub fn normalized(&self) -> Self {
-        *self / self.length()
+    pub fn normalized(self) -> Self {
+        self / self.length()
     }
 
-    pub fn dot(&self, rhs: &Self) -> f64 {
+    pub fn dot(self, rhs: Self) -> f64 {
         self.x * rhs.x + self.y * rhs.y
     }
 
-    pub fn extend(&self, z: f64) -> Vec3 {
+    pub fn extend(self, z: f64) -> Vec3 {
         Vec3::new(self.x, self.y, z)
     }
 
-    pub fn near_zero(&self) -> bool {
+    pub fn near_zero(self) -> bool {
         let s = 1e-8;
 
         (self.x.abs() < s) && (self.y.abs() < s)
