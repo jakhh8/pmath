@@ -7,13 +7,13 @@ pub trait Lerp {
 
 impl Lerp for f64 {
     fn lerp(self, rhs: Self, fac: f64) -> Self {
-        (1.0 - fac) * rhs + fac * self
+        (1.0 - fac) * self + fac * rhs
     }
 }
 
 impl Lerp for Vec3 {
     fn lerp(self, rhs: Self, fac: f64) -> Self {
-        (1.0 - fac) * rhs + fac * self
+        (1.0 - fac) * self + fac * rhs
     }
 }
 
