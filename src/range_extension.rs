@@ -9,6 +9,9 @@ pub trait RangeExtension<T> {
 
     #[allow(unused)]
     fn expand(&self, delta: T) -> Self;
+
+    #[allow(unused)]
+    fn size(&self) -> T;
 }
 
 impl RangeExtension<f64> for RangeInclusive<f64> {
@@ -24,5 +27,9 @@ impl RangeExtension<f64> for RangeInclusive<f64> {
         let padding = delta / 2.0;
 
         self.start() - padding..=self.end() + padding
+    }
+
+    fn size(&self) -> f64 {
+        self.end() - self.start()
     }
 }
